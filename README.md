@@ -4,10 +4,12 @@ Simple API for an auction service using Django Rest Framework
 
 
 ## Getting started
-1. Install docker and Docker-compose for easy setup. Server should be up and running and visiting http://127.0.0.1:8000/api/v1/ should return a page with a list of some of the endpoints
+1. Install docker and Docker-compose for easy setup. 
 
 2. Run `docker-compose build && docker-compose up -d`. You should get this output 
    **Recreating auction-server ... done**
+   
+   Server should be up and running and visiting http://127.0.0.1:8000/api/v1/ should return a page with a list of some of the endpoints
 
 3. Create user(s). See sample request below
 ```
