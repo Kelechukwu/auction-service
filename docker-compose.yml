@@ -1,0 +1,9 @@
+version: "3"
+services:
+  server:
+    build: auction_bid_tracker
+    container_name: "auction-server"
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"

@@ -45,6 +45,14 @@ class ItemView(viewsets.ModelViewSet):
     serializer_class = ItemSerializer
 
 
+class UserView(viewsets.ModelViewSet):
+    """
+        Retrieve all available users
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
 class WinningBid(APIView):
     """
     Retrieve current winning bid for an item.
