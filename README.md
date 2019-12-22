@@ -1,7 +1,7 @@
 # Auction-service
 Simple API for an auction service using Django Rest Framework
 
-
+test cases are in **api/tests.py** 
 
 ## Getting started
 1. Install docker and Docker-compose for easy setup. 
@@ -106,3 +106,7 @@ Content-Type: application/json
 ]
   ```
   
+## Data Structure Used
+The Django ORM was used to create classes for **Items Table**, **Users Table**  and **Bids Tables**. The database engine used for this project is SQLite which is an RDBMS. Implementation can be found in `api/models.py` 
+
+## concurrency approach
