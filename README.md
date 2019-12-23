@@ -9,7 +9,8 @@ test cases are in **api/tests.py**
 2. Run `docker-compose build && docker-compose up -d`. You should get this output 
    **Recreating auction-server ... done**
    
-   Server should be up and running and visiting http://127.0.0.1:8000/api/v1/ should return a page with a list of some of the endpoints
+   **NOTE**: To run the testcases execute `docker exec -it auction-server  python manage.py test`.
+   Server should be up and running and visiting http://127.0.0.1:8000/api/v1/ should return a page with a list of some of the    endpoints. 
 
 3. Create user(s). See sample request below
 ```
@@ -110,3 +111,4 @@ Content-Type: application/json
 The Django ORM was used to create classes for **Items Table**, **Users Table**  and **Bids Tables**. The database engine used for this project is SQLite which is an RDBMS. Implementation can be found in `api/models.py` 
 
 ## concurrency approach
+
