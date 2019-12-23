@@ -107,8 +107,22 @@ Content-Type: application/json
 ]
   ```
   
-## Data Structure Used
-The Django ORM was used to create classes for **Items Table**, **Users Table**  and **Bids Tables**. The database engine used for this project is SQLite which is an RDBMS. Implementation can be found in `api/models.py` 
+## Data Structures Used
+The Django ORM was used to create classes for **Items Table**, **Users Table**  and **Bids Tables**. The database engine used for this project is Postgres which is an RDBMS. One object worthy of note is the Bid class.
+```
+class Bid(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE) 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    bid_time = models.DateTimeField(auto_now_add=True) 
+    bid_amount =  models.DecimalField(decimal_places=2, max_digits=10)
 
-## concurrency approach
+```
+
+**Note**: Complete implementation can be found in `api/models.py` 
+
+## Concurrency approach
+When this application is started, a docker container spins up two services.
+1. *auction-db* :  this is a postgres database server. Postgres is a SQL database with ACID properties that will place a lock on resources during writes. Therefore, only one write can happen a time to maintain integrity. The timestamp on a bid is determined by the write time and this helps to prevent ties.
+
+2. *auction-server*: a gunicorn webserver with 4 workers. Each of the workers is a UNIX process that loads an instance of the Python application. This makes it possible for concurrent requests to be handled by any of the 4 workers 
 
