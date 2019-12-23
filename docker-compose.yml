@@ -1,9 +1,31 @@
 version: "3"
 services:
+  db:
+    image: "postgres"
+    container_name: "auction-db"
+    environment:
+      POSTGRES_PASSWORD: 'postgres'
+    expose:
+      - "5432"
+    volumes:
+      - database_data:/var/lib/postgresql/data
   server:
     build: auction_bid_tracker
     container_name: "auction-server"
+    entrypoint: ./entrypoint.sh
+    depends_on:
+      - "db"
+    environment:
+      - "PYTHONUNBUFFERED=1"
+      - "DB_HOST=auction-db"
+      - "DB_NAME=postgres"
+      - "DB_USER=postgres"
+      - "DB_PASSWORD=postgres"
+    command: gunicorn --workers=4 -b 0.0.0.0:8000 auction_bid_tracker.wsgi:application --access-logfile -
     ports:
       - "8000:8000"
     expose:
       - "8000"
+volumes:
+  database_data:
+    driver: local

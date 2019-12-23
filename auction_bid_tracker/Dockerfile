@@ -6,6 +6,4 @@ WORKDIR /auction_bid_tracker
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-RUN python manage.py migrate
-
-CMD gunicorn --workers=4 -b 0.0.0.0:8000 auction_bid_tracker.wsgi:application --access-logfile -
+RUN chmod +x entrypoint.sh

@@ -29,20 +29,20 @@ class BidTest(APITestCase):
 
     def test_user_can_bid_for_item(self):
 
-        bid = {'item': 1, 'user':1, 'bid_amount': 3000}
+        bid = {'item': self.items[0].id, 'user':self.users[0].id, 'bid_amount': 3000}
         response = self.client.post('/api/v1/bids', bid, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def test_can_get_all_bids_and_winning_bid_for_an_item(self):
-        item_id = 1
+        item_id = self.items[0].id
 
         # first bid
-        bid_1 = {'item': item_id, 'user':1, 'bid_amount': 3000}
+        bid_1 = {'item': item_id, 'user':self.users[0].id, 'bid_amount': 3000}
         response = self.client.post('/api/v1/bids', bid_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # second bid
-        bid_2 = {'item': item_id, 'user':2, 'bid_amount': 4000}
+        bid_2 = {'item': item_id, 'user':self.users[1].id, 'bid_amount': 4000}
         response = self.client.post('/api/v1/bids', bid_2, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -62,15 +62,15 @@ class BidTest(APITestCase):
     
 
     def test_get_all_items_a_user_has_bid(self):
-        user_id = 1
+        user_id = self.users[0].id
         
         # first bid
-        bid_1 = {'item': 1, 'user':user_id, 'bid_amount': 3000}
+        bid_1 = {'item': self.items[0].id, 'user':user_id, 'bid_amount': 3000}
         response = self.client.post('/api/v1/bids', bid_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # second bid
-        bid_2 = {'item': 2, 'user':user_id, 'bid_amount': 4000}
+        bid_2 = {'item': self.items[1].id, 'user':user_id, 'bid_amount': 4000}
         response = self.client.post('/api/v1/bids', bid_2, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -82,15 +82,15 @@ class BidTest(APITestCase):
     
 
     def test_user_cannot_bid_on_item_multiple_times(self):
-        user_id = 1
+        user_id = self.users[0].id
         
         # first bid
-        bid_1 = {'item': 1, 'user':user_id, 'bid_amount': 3000}
+        bid_1 = {'item': self.items[0].id, 'user':user_id, 'bid_amount': 3000}
         response = self.client.post('/api/v1/bids', bid_1, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
         # second bid
-        bid_2 = {'item': 1, 'user':user_id, 'bid_amount': 4000}
+        bid_2 = {'item': self.items[0].id, 'user':user_id, 'bid_amount': 4000}
         response = self.client.post('/api/v1/bids', bid_2, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 

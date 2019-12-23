@@ -32,6 +32,7 @@ def get_user(user_id):
     except User.DoesNotExist:
         raise Http404
 
+
 class BidView(viewsets.ModelViewSet):
     queryset = Bid.objects.all()
     serializer_class = BidSerializer
@@ -84,6 +85,7 @@ class ItemBids(APIView):
 
         serializer = BidSerializer(bids, many=True)
         return Response(serializer.data)
+
 
 class UserItemsBids(APIView):
     """
